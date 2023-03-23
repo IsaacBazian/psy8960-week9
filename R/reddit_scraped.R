@@ -13,4 +13,12 @@ post <- rstats_html %>%
 upvotes <- rstats_html %>% 
   html_elements(xpath = "//div[@class = 'score unvoted']") %>% 
   html_text() %>% 
-  as.numeric()
+  as.numeric() %>% 
+  replace_na(0)
+
+comments <- rstats_html %>% 
+  html_elements(xpath = "//a[@data-event-action = 'comments']") %>% 
+  html_text() %>% 
+  str_extract(pattern = "\\d*") %>% 
+  as.numeric() %>% 
+  replace_na(0)
