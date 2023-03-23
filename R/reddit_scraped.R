@@ -10,3 +10,7 @@ post <- rstats_html %>%
   html_elements(xpath = "//p[@class = 'title']") %>% 
   html_text()
   
+upvotes <- rstats_html %>% 
+  html_elements(xpath = "//div[@class = 'score unvoted']") %>% 
+  html_text() %>% 
+  as.numeric()
