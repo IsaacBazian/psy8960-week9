@@ -10,7 +10,7 @@ rstats_html <- read_html("https://old.reddit.com/r/rstats/")
 # This series of three pipes extracts the variables of interest from the xml_document
 # This pipe extracts post title elements and keeps the text
 post <- rstats_html %>% 
-  html_elements(xpath = "//p[@class = 'title']") %>% 
+  html_elements(xpath = "//a[@data-event-action = 'title']") %>% 
   html_text()
 
 # This pipe extracts upvote elements, keeps the text, converts that text to numeric, and converts NAs from posts with no upvotes to 0s
@@ -44,7 +44,7 @@ upvComTest <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)
 upvComTest
 
 ## Publication
-#The correlation between upvotes and comments was r(23) = .81, p = .00. This test was statistically significant.
+#The correlation between upvotes and comments was r(23) = .76, p = .00. This test was statistically significant.
 
 # We assign the df, r, and p-value from the previously conducted cor.test to objects. In theory, we could simply use these functions inside paste0(), but this way is easier to read
 df <- upvComTest$parameter
