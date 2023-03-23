@@ -32,5 +32,17 @@ comments <- rstats_html %>%
 rstats_tbl <- tibble(post, upvotes, comments)
 
 ## Visualization
+# This pipe takes our tibble, plots number of upvotes vs number of comments, makes it a scatterplot, adds a line of best fit (not explicitly asked for or necessary but I like having it), and makes the axes titles a bit more descriptive
+ggplot(rstats_tbl, aes(upvotes, comments)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Number of Upvotes", y = "Number of Comments")
+
+
+
+
+
+
+
 
 
