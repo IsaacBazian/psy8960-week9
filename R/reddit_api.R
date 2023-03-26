@@ -33,7 +33,7 @@ upvComTest <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)
 upvComTest
 
 ## Publication
-#The correlation between upvotes and comments was r(23) = .74, p = .00. This test was statistically significant.
+# "The correlation between upvotes and comments was r(23) = .35, p = .08. This test was not statistically significant."
 
 # We assign the df, r, and p-value from the previously conducted cor.test to objects. In theory, we could simply use these functions inside paste0(), but this way is easier to read
 df <- upvComTest$parameter
@@ -43,9 +43,16 @@ pvalue <- str_remove(format(round(upvComTest$p.value, 2), nsmall = 2), pattern =
 # and include exactly 2 trailing zeros which round() could otherwise omits, but I elected to do it this way
 # because what the code is doing is still pretty simple, and this is all just 'under the hood' for display anyway
 
-# We combine the text and the dynamically calculated values stored in the objects
-paste0("The correlation between upvotes and comments was r(", df,") = ", cor, ", p = ", pvalue, ". This test was statistically significant." )
+# After coming back a few days later, I now see the relationship is not significant. Since it looks like this can change day-to-day, I am making
+# the interpretations dynamic too; this code makes an object that contains "was" if the pvalue object is less than or equal to .05, and "was not" if the value is above .05.
+if (as.numeric(pvalue) <= .05) {
+  interpretation <- "was"
+} else {
+  interpretation <- "was not"
+}
 
+# We combine the text and the dynamically calculated values stored in the objects
+paste0("The correlation between upvotes and comments was r(", df,") = ", cor, ", p = ", pvalue, ". This test ", interpretation, " statistically significant." )
 
 
 
